@@ -9,7 +9,11 @@ const userSchema = new mongoose.Schema({
   password:{
     type : String,
     required: true
-  }
+  },
+  savedrecipe:[{
+    type : mongoose.Schema.Types.ObjectId,
+    ref : "Recipe"
+  }]
 },
   {timestamps: true})
 

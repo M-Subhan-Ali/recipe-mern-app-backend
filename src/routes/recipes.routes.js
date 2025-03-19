@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { Recipe } from "../models/recipes.models.js";
+import { User } from "../models/user.models.js";
 
 const router = Router();
 
@@ -32,6 +33,25 @@ router.post("/", async ( req , res )=> {
       message: "cannot create recipe"
     })
   }
+})
+
+
+router.put("/", async( req , res) => {
+  try {
+    const recipe = await Recipe.findById(req.body.recipeID);
+    const user = await User.findById(req.body.UserID);
+    
+    user.savedrecipe.push(recipe);
+    await user.save();
+  
+    res.json({savedREcipes : user.savedrecipe})
+  
+  } catch (error) {
+
+    console.error(error)
+  
+  }
+
 })
 
 export {router as Recipe_Router}
