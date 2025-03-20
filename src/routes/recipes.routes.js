@@ -44,7 +44,7 @@ router.put("/", async( req , res) => {
     user.savedrecipe.push(recipe);
     await user.save();
   
-    res.json({savedREcipes : user.savedrecipe})
+   return res.status(200).json({savedrecipe : user.savedrecipe})
   
   } catch (error) {
 
@@ -53,5 +53,18 @@ router.put("/", async( req , res) => {
   }
 
 })
+
+router.get("/savedrecipes/ids/:UserID" , async ( req , res )=>{
+
+  try {
+    const user = await User.findById(req.params.UserID);
+  
+    return res.status(201).json({savedrecipe : user?.savedrecipe})
+
+  } catch (error) {
+    console.error(error)
+  }
+})
+
 
 export {router as Recipe_Router}
