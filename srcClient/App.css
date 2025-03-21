@@ -1,0 +1,147 @@
+.App {
+  text-align: center;
+}
+body{
+  box-sizing: border-box;
+  padding: 0%;
+  margin: 0%;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.navbar{
+  background-color: #282c34;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.navbar a{
+ color: aliceblue;
+ text-decoration: none;
+ font-size: 1.5rem;
+}
+
+.form-field{
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.form{
+  display: grid;
+  margin-bottom: 20px;
+}
+
+.form label{
+  text-align: start;
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding-bottom: 10px;
+}
+
+.form input{
+  padding: 10px 4px;
+  outline: none;
+  font-size: 15px;
+}
+
+.form-field button{
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: #282c34;
+  color: antiquewhite;
+}
+
+.create-recipe{
+  width: 30%;
+  padding-top: 2%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.create-recipe form{
+  display: grid;
+}
+.create-recipe form label{
+  font-size: 1.5rem;
+  text-align: start;
+  padding: 10px 0px;
+  font-weight: 500;
+}
+.create-recipe form input{
+  padding: 10px 4px;
+  font-size: 1.3rem;
+}
+.create-recipe form button{
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+.recipes_home{
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.recipes_home ul{
+  list-style: none;
+}
+.recipes_home h2{
+  font-size: 2.5rem;
+  color: #282c34;
+  font-weight: 800;
+  text-align: start;
+}
+.recipes_home ul li{
+  border: 1px solid rgb(82, 80, 80);
+  margin: 10px 0px;
+  border-radius: 10px;
+  padding: 10px;
+}
+.recipes_home img{
+  width: 100%;
+}
+.recipes_home p{
+  text-align: start;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+.instructions{
+  text-align: start;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
