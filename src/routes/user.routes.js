@@ -58,12 +58,27 @@ router.post("/login", async( req,res )=>{
     message : "User Login Successfully!",
     UserID:loggedIn._id,
     token,
-    loggedIn
+    // loggedIn
   })
   
 
 
 })
 
+export const verifyJWT = (req , res , next) => {
+  
+  const authHeader = req.headers.authorization;
+  if(authHeader){
+    jwt.verify(authHeader , "SECRET" , (err)=>{
+      if(err){
+        return res.status(401).json({message : "Invalid Token!"})
+      }
+    } )
+    next()
+  }else{
+    return res.status(401).json({message : "No Token Provided!"})
+  }
+
+}
 
 export {router as userRouter}

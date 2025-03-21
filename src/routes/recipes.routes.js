@@ -1,10 +1,11 @@
 import { Router } from "express";
 import { Recipe } from "../models/recipes.models.js";
 import { User } from "../models/user.models.js";
+import { verifyJWT } from "./user.routes.js";
 
 const router = Router();
 
-router.get("/", async ( req , res ) => {
+router.get("/", async ( req , res ) => {  //home
   try {
     const response = await Recipe.find({});
     return res.status(200).json(response);
@@ -18,7 +19,7 @@ router.get("/", async ( req , res ) => {
 })
 
 
-router.post("/", async ( req , res )=> {
+router.post("/", verifyJWT ,async ( req , res )=> {
   try {
      const recipe = new Recipe(req.body);
      await recipe.save();
@@ -36,7 +37,7 @@ router.post("/", async ( req , res )=> {
 })
 
 
-router.put("/", async( req , res) => {
+router.put("/", verifyJWT ,async( req , res) => {
   try {
     const recipe = await Recipe.findById(req.body.recipeID);
     const user = await User.findById(req.body.UserID);
@@ -54,7 +55,7 @@ router.put("/", async( req , res) => {
 
 })
 
-router.get("/savedrecipes/ids/:UserID" , async ( req , res )=>{
+router.get("/savedrecipes/ids/:UserID" , async ( req , res )=>{ // home
 
   try {
     const user = await User.findById(req.params.UserID);
@@ -66,5 +67,25 @@ router.get("/savedrecipes/ids/:UserID" , async ( req , res )=>{
   }
 })
 
+
+router.get("/savedRecipes/:UserID" , async( req , res ) => {
+  try {
+    
+    const user = await User.findById(req.params.UserID)
+    
+    const savedRecipe = await Recipe.find({
+      _id : {$in : user.savedrecipe}
+    })
+  
+    res.status(200).json(savedRecipe)
+  
+  
+  } catch (error) {
+
+    console.error(error)
+  
+  }
+
+})
 
 export {router as Recipe_Router}
