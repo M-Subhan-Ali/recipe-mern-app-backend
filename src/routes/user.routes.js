@@ -33,36 +33,41 @@ router.post("/register", async(req,res)=>{
 
 router.post("/login", async( req,res )=>{
 
-  const {username , password} = req.body;
-
-  const existedUser = await User.findOne( {username} );
-
-  if( !existedUser ){
-    return res.status(400).json({message : "Username not Found !"})
-  }
-
-  const PasswordCorrect = await bcrypt.compare( password , existedUser.password );
-
-  if(!PasswordCorrect){
-    return res.status(400).json({message : "Password or Username is incorrect"})
-  }
-
-  const loggedIn = await User.findById(existedUser._id).select("-password")
-
-  const token = jwt.sign({
-    _id : loggedIn._id,
-    username : loggedIn.username,  
-  },"SECRET",{
-    expiresIn : "1h",
-  });
+  try {
+    const {username , password} = req.body;
   
-  return res.status(200).json({
-    message : "User Login Successfully!",
-    UserID:loggedIn._id,
-    token,
-    // loggedIn
-  })
+    const existedUser = await User.findOne( {username} );
   
+    if( !existedUser ){
+      return res.status(400).json({message : "Username not Found !"})
+    }
+  
+    const PasswordCorrect = await bcrypt.compare( password , existedUser.password );
+  
+    if(!PasswordCorrect){
+      return res.status(400).json({message : "Password or Username is incorrect"})
+    }
+  
+    const loggedIn = await User.findById(existedUser._id).select("-password")
+  
+    const token = jwt.sign({
+      _id : loggedIn._id,
+      username : loggedIn.username,  
+    },"SECRET",{
+      expiresIn : "1h",
+    });
+    
+    return res.status(200).json({
+      message : "User Login Successfully!",
+      UserID:loggedIn._id,
+      token,
+      // loggedIn
+    })
+    
+  } catch (error) {
+    return res.status(500).
+    json({message : `Internal Server Error ${error}`})
+  }
 
 
 })
